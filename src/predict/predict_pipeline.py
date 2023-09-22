@@ -492,28 +492,28 @@ class PredictPipeline:
 
 
 
-if __name__=="__main__": 
+# if __name__=="__main__": 
 
-    model_name ='MeshSegNet_17_classes_396_best.tar'
-    ip_path = './src/predict/input'
-    op_path = './src/predict/output'
-    exctract_c= True
-    p=PredictPipeline()
+#     model_name ='MeshSegNet_17_classes_396_best.tar'
+#     ip_path = './src/predict/input/itero_lower_set2'
+#     op_path = './src/predict/output/itero_lower_set2_output'
+#     exctract_c= False
+#     p=PredictPipeline()
 
 
 
     
 
-    #for file_num in range(2, (len(os.listdir(ip_path)) + 1)): #try to change it to file name instead of a number
-    # 
-    for file_num in os.listdir(ip_path):
-        if exctract_c== True:
-            binary_mesh= p.predict_c(ip_path,file_num)
-            cshape=p.get_cshape(binary_mesh,file_num)
-            new_ip_path='./src/predict/extracted_c'
-            p.predict_labels(model_name, new_ip_path, op_path, file_num)
+#     #for file_num in range(2, (len(os.listdir(ip_path)) + 1)): #try to change it to file name instead of a number
+#     # 
+#     for file_num in os.listdir(ip_path):
+#         if exctract_c== True:
+#             binary_mesh= p.predict_c(ip_path,file_num)
+#             cshape=p.get_cshape(binary_mesh,file_num)
+#             new_ip_path='./src/predict/extracted_c'
+#             p.predict_labels(model_name, new_ip_path, op_path, file_num)
             
 
-        else:
-            p.predict_labels(model_name, ip_path, op_path, file_num)
+#         else:
+#             p.predict_labels(model_name, ip_path, op_path, file_num)
 
