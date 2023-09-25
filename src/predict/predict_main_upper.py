@@ -3,18 +3,18 @@ import os
 import numpy as np
 import torch
 import torch.nn as nn
-from src.meshsegnet import *
+from MeshSegDental.src.meshsegnet import *
 import vedo
 from vedo import *
 import pandas as pd
-from src.loss_and_metrics import *
+from MeshSegDental.src.loss_and_metrics import *
 from scipy.spatial import distance_matrix
 import scipy.io as sio
 import shutil
 import time
 from sklearn.neighbors import KNeighborsClassifier
 from pygco import cut_from_graph
-from src.predict.predict_pipeline import PredictPipeline
+from MeshSegDental.src.predict.predict_pipeline import PredictPipeline
 
 
 
