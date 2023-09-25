@@ -2,11 +2,11 @@ import os
 import numpy as np
 import torch
 import torch.nn as nn
-from MeshSegDental.src.meshsegnet import *
+from src.meshsegnet import *
 import vedo
 from vedo import *
 import pandas as pd
-from MeshSegDental.src.loss_and_metrics import *
+from src.loss_and_metrics import *
 from scipy.spatial import distance_matrix
 import scipy.io as sio
 import shutil
