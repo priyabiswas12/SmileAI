@@ -361,7 +361,7 @@ class PredictPipeline:
 
             original_cells_d = cells.copy()
 
-            mean_cell_centers = mesh_d.centerOfMass()
+            mean_cell_centers = mesh_d.center_of_mass()
             cells[:, 0:3] -= mean_cell_centers[0:3]
             cells[:, 3:6] -= mean_cell_centers[0:3]
             cells[:, 6:9] -= mean_cell_centers[0:3]
