@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import StepLR
 import torch.optim as optim
 import torch.nn as nn
-from src.Mesh_dataset import *
+from src.mesh_dataset import *
 from src.meshsegnet import *
 from src.loss_and_metrics import *
 import utils
@@ -40,9 +40,6 @@ if __name__ == "__main__":
     print('--------------------------------------------')
     print("Train-test Splits done")
 
-   
-   
-   
    
    #Step3
     train_path = './src/train/train_test_splits/train_list_1.csv' # use 1-fold as example
