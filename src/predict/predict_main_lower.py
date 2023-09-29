@@ -3,7 +3,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 from src.meshsegnet import *
-import vedo
 from vedo import *
 import pandas as pd
 from src.loss_and_metrics import *

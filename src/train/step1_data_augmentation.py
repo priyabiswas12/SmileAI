@@ -2,7 +2,9 @@ import os
 import numpy as np
 import vtk
 from vedo import *
-from src.train.step2_get_list import SplitData
+# from src.train.step2_get_list import SplitData
+# from src.train.step3_training import ModelTrainer
+# from src.train.step1_data_augmentation import DataAugmentation
 
 
 
@@ -73,17 +75,7 @@ class DataAugmentation:
 
     
 
-if __name__ == "__main__":
-    ip_path = "./src/train/ip_vtk"
-    op_save_path='./src/train/augmentation_vtk_data'
-    dt= DataAugmentation()
-    dt.initiate_data_augmentation(ip_path,op_save_path)
 
-    data_path = './src/train/augmentation_vtk_data/'
-    output_path = './src/train/'
-    train_size = 0.8
-    s=SplitData()
-    s.get_list(data_path, output_path, train_size)
 
  
 

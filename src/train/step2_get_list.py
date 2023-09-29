@@ -33,7 +33,7 @@ class SplitData:
         #print(sample_list)
 
         i_cv = 0
-        kf = KFold(n_splits=5, shuffle=False)
+        kf = KFold(n_splits=2, shuffle=False)
         for train_idx, test_idx in kf.split(sample_list):
 
             i_cv += 1
@@ -71,7 +71,7 @@ class SplitData:
 
             #test
             test_df = pd.DataFrame(data=test_list, columns=['Test ID'])
-            test_df.to_csv('test_list_{}.csv'.format(i_cv), index=False)
+            test_df.to_csv(os.path.join(output_path,'test_list_{}.csv'.format(i_cv)), index=False)
 
 
             print('--------------------------------------------')

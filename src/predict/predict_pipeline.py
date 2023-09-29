@@ -268,25 +268,6 @@ class PredictPipeline:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     
     def predict_labels(self, model_name, ip_path, op_path, file_num):
@@ -377,9 +358,13 @@ class PredictPipeline:
             v2[:, 2] = cells[:, 5] - cells[:, 8]
             mesh_normals = np.cross(v1, v2)
             mesh_normal_length = np.linalg.norm(mesh_normals, axis=1)
-            mesh_normals[:, 0] /= mesh_normal_length[:]
-            mesh_normals[:, 1] /= mesh_normal_length[:]
-            mesh_normals[:, 2] /= mesh_normal_length[:]
+
+            mesh_normals[:, 0]= np.divide(mesh_normals[:, 0], mesh_normal_length[:], out=np.zeros_like(mesh_normals[:, 0]), where=mesh_normal_length[:]!=0)
+            mesh_normals[:, 1]= np.divide(mesh_normals[:, 1], mesh_normal_length[:], out=np.zeros_like(mesh_normals[:, 1]), where=mesh_normal_length[:]!=0)
+            mesh_normals[:, 2]= np.divide(mesh_normals[:, 2], mesh_normal_length[:], out=np.zeros_like(mesh_normals[:, 2]), where=mesh_normal_length[:]!=0)
+            #mesh_normals[:, 0] /= mesh_normal_length[:]
+            #mesh_normals[:, 1] /= mesh_normal_length[:]
+            #mesh_normals[:, 2] /= mesh_normal_length[:]
             mesh_d.celldata['Normal']=mesh_normals
 
             # preprae input
@@ -485,6 +470,58 @@ class PredictPipeline:
             mesh3.celldata['Label']=refine_labels
             vedo.write(mesh3, os.path.join(output_path, '{}_d_predicted_refined.vtp'.format(i_sample[:-4])))
 
+
+
+
+        #    # upsampling
+            # print('\tUpsampling...')
+            # if mesh.NCells() > 100000:
+            #     target_num = mesh.NCells() # set max number of cells
+            #     ratio = target_num/mesh.NCells() # calculate ratio
+            #     mesh.decimate(fraction=ratio)
+            #     print('Original contains too many cells, simpify to {} cells'.format(mesh.NCells()))
+
+            # # get fine_cells
+            # cells = np.zeros([mesh.NCells(), 9], dtype='float32')
+            # for i in range(len(cells)):
+            #     cells[i][0], cells[i][1], cells[i][2] = mesh.polydata().GetPoint(mesh.polydata().GetCell(i).GetPointId(0)) # don't need to copy
+            #     cells[i][3], cells[i][4], cells[i][5] = mesh.polydata().GetPoint(mesh.polydata().GetCell(i).GetPointId(1)) # don't need to copy
+            #     cells[i][6], cells[i][7], cells[i][8] = mesh.polydata().GetPoint(mesh.polydata().GetCell(i).GetPointId(2)) # don't need to copy
+
+            # fine_cells = cells
+
+            # barycenters = mesh3.cellCenters() # don't need to copy
+            # fine_barycenters = mesh.cellCenters() # don't need to copy
+
+            # if upsampling_method == 'SVM':
+            #     #clf = SVC(kernel='rbf', gamma='auto', probability=True, gpu_id=gpu_id)
+            #     clf = SVC(kernel='rbf', gamma='auto', gpu_id=gpu_id)
+            #     # train SVM
+            #     #clf.fit(mesh2.cells, np.ravel(refine_labels))
+            #     #fine_labels = clf.predict(fine_cells)
+
+            #     clf.fit(barycenters, np.ravel(refine_labels))
+            #     fine_labels = clf.predict(fine_barycenters)
+            #     fine_labels = fine_labels.reshape(-1, 1)
+            # elif upsampling_method == 'KNN':
+            #     neigh = KNeighborsClassifier(n_neighbors=3)
+            #     # train KNN
+            #     #neigh.fit(mesh2.cells, np.ravel(refine_labels))
+            #     #fine_labels = neigh.predict(fine_cells)
+
+            #     neigh.fit(barycenters, np.ravel(refine_labels))
+            #     fine_labels = neigh.predict(fine_barycenters)
+            #     fine_labels = fine_labels.reshape(-1, 1)
+
+            # mesh.celldata['Label']=fine_labels
+            # vedo.write(mesh, os.path.join(output_path, '{}_predicted_refined.vtp'.format(i_sample[:-4])))
+
+            #remove tmp folder
+            shutil.rmtree(tmp_path)
+
+            end_time = time.time()
+            print('Sample filename: {} completed'.format(i_sample))
+            print('\tcomputing time: {0:.2f} sec'.format(end_time-start_time))
             
 
 
