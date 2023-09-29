@@ -1,4 +1,4 @@
-# MeshSegDental
+# SmileAI
 
 ### For LowerJaw Prediction run:
 python .\src\predict\predict_main_lower.py
